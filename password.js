@@ -66,6 +66,19 @@ function printInfoMessage() {
 }
 
 printInfoMessage();
-let newPasswordLength = input.questionInt("Please input a numeric length for password: ");
 
-console.log(newPasswordLength);
+function getPasswordLength() {
+
+    let newPasswordLength = input.questionInt("> Please input a numeric length for password: ");
+
+    while(newPasswordLength > 999 || newPasswordLength < 12) {
+        console.log("> \n> Password length unacceptable. Use a value between 12 and 999.\n");
+        newPasswordLength = input.questionInt("> Please input a numeric length for password: ");
+    }
+
+
+    return newPasswordLength;
+}
+
+let num = getPasswordLength();
+console.log(num);
