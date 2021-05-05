@@ -1,6 +1,8 @@
 const input = require('readline-sync');
 
 //the bricks for the wall
+const lineStart = "* ";
+const lineEnd = "\n* ";
 const characterArrayPlainText = [
     "a","b","c","d","e","f","g","h","i","j",
     "k","m","n","o","p","q","r","s","t",
@@ -14,62 +16,42 @@ const characterArrayPlainText = [
 
 //selects a random character
 function getRandomChar(max) {
-        return (Math.floor(Math.random() * Math.floor(max)));
-        }
-    
+    return (Math.floor(Math.random() * Math.floor(max)));
+}
+
+// uses inputs to create the password from array characters
 function createNewPassword(value, characterArray) {
     let password = "";
-    if (characterArray === '3') {
+    if (characterArray === 3) {
         for (i = 0; i < value; i++) {
             password += characterArrayPlainText[getRandomChar(characterArrayPlainText.length)];
         }
-    } if (characterArray === '2') {
+    } if (characterArray === 2) {
         for (i = 0; i < value; i++) {
             password += characterArrayPlainText[getRandomChar(characterArrayPlainText.length-10)];
         }
-    } if (characterArray === '1') {
+    } if (characterArray === 1) {
         for (i = 0; i < value; i++) {
             password += characterArrayPlainText[getRandomChar(characterArrayPlainText.length-36)];
         }
     }
     return password;
 }        
-/*
-//respond to make new-password user request
-const buttonElement = document.getElementById('make-password');
-buttonElement.addEventListener("click", function() {
 
-    const lengthPasswordElement = document.getElementById('length-password');
-    const selectTypePasswordElement = document.querySelector('input[name="engine"]:checked');
 
-    let newPassword = createNewPassword(lengthPasswordElement.value, selectTypePasswordElement.value);
 
-    const newPasswordElement = document.getElementById('new-password');
-    newPasswordElement.innerHTML += `
-        <p>${newPassword}</p>
-        <hr>
-    `;
-});
-
-function printThreeDotsCLI() {
-    for(let i = 0; i < 3; i++){
-        console.log(">");
-    }
-}
-*/
-
-const lineStart = "* ";
-const lineEnd = "\n* ";
-
-function printInfoMessage() {
-    console.log(lineStart + "This CLI program will create a unique, randomized password for your use." + lineEnd);
+// prints instructions and tips at start
+function printLengthMessage() {
+    console.log(lineEnd + "This CLI program will create a unique, randomized password for your use." + lineEnd);
     console.log(lineStart + "A secure password is at least 12 characters long." + lineEnd);
     console.log(lineStart + "The password will become exponentially more secure as the length increases." + lineEnd);
 }
 
-printInfoMessage();
 
+// sets the password length from user input
 function getPasswordLength() {
+
+    printLengthMessage();
 
     let newPasswordLength = input.questionInt(lineStart + "Please input a numeric length for password: ");
 
@@ -81,5 +63,37 @@ function getPasswordLength() {
     return newPasswordLength;
 }
 
-let passwordLength = getPasswordLength();
-console.log(num);
+// prints message about which characters each type will use
+function printTypeMessage() {
+    console.log(lineEnd + "Type '1' = Lowercase and numbers." + lineEnd);
+    console.log(lineStart + "Type '2' = Uppercase, lowercase, and numbers." + lineEnd);
+    console.log(lineStart + "Type '3' = Uppercase, lowercase, numbers, and 10 common unique characters from number bar." + lineEnd);
+}
+
+// gets the password type from user for character usage
+function getPasswordType() {
+
+    printTypeMessage();
+
+    let newPasswordType = input.questionInt(lineStart + "Please input a numeric type for password: ");
+
+    while(newPasswordType > 3 || newPasswordType < 1) {
+        console.log(lineEnd + "Password type unacceptable. Use a value between 1 and 3.");
+        newPasswordType = input.questionInt(lineStart + "Please input a numeric type for password: ");
+    }
+
+    return newPasswordType;
+}
+
+// carries out all logic of the program
+function printPassword() {
+
+    let passwordLength = getPasswordLength();
+    let passwordType = getPasswordType();
+    let newPassword = createNewPassword(passwordLength, passwordType);
+
+    console.log("\n" + newPassword);
+}
+
+// calls the program
+printPassword();
