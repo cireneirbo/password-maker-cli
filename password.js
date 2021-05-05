@@ -38,15 +38,12 @@ function createNewPassword(value, characterArray) {
     return password;
 }        
 
-
-
 // prints instructions and tips at start
 function printLengthMessage() {
     console.log(lineEnd + "This CLI program will create a unique, randomized password for your use." + lineEnd);
     console.log(lineStart + "A secure password is at least 12 characters long." + lineEnd);
     console.log(lineStart + "The password will become exponentially more secure as the length increases." + lineEnd);
 }
-
 
 // sets the password length from user input
 function getPasswordLength() {
