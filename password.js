@@ -50,35 +50,36 @@ buttonElement.addEventListener("click", function() {
         <hr>
     `;
 });
-*/
+
 function printThreeDotsCLI() {
     for(let i = 0; i < 3; i++){
         console.log(">");
     }
 }
+*/
+
+const lineStart = "* ";
+const lineEnd = "\n* ";
 
 function printInfoMessage() {
-    const lineStart = "> ";
-
-    console.log(lineStart + "This CLI program will create a unique, randomized password for your use. \n" + lineStart);
-    console.log(lineStart + "A secure password is at least 12 characters long.\n" + lineStart);
-    console.log(lineStart + "The password will become exponentially more secure as the length increases.\n" + lineStart);
+    console.log(lineStart + "This CLI program will create a unique, randomized password for your use." + lineEnd);
+    console.log(lineStart + "A secure password is at least 12 characters long." + lineEnd);
+    console.log(lineStart + "The password will become exponentially more secure as the length increases." + lineEnd);
 }
 
 printInfoMessage();
 
 function getPasswordLength() {
 
-    let newPasswordLength = input.questionInt("> Please input a numeric length for password: ");
+    let newPasswordLength = input.questionInt(lineStart + "Please input a numeric length for password: ");
 
     while(newPasswordLength > 999 || newPasswordLength < 12) {
-        console.log("> \n> Password length unacceptable. Use a value between 12 and 999.\n");
-        newPasswordLength = input.questionInt("> Please input a numeric length for password: ");
+        console.log(lineStart + "Password length unacceptable. Use a value between 12 and 999.");
+        newPasswordLength = input.questionInt(lineStart + "Please input a numeric length for password: ");
     }
-
 
     return newPasswordLength;
 }
 
-let num = getPasswordLength();
+let passwordLength = getPasswordLength();
 console.log(num);
